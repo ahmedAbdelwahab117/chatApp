@@ -1,12 +1,14 @@
 import 'package:chat/ConstantFile.dart';
+import 'package:chat/models/message.dart';
 import 'package:chat/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomChat extends StatelessWidget {
   const CustomChat({
     super.key,
+    required this.message,
   });
-
+  final MessageModel message;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -24,7 +26,7 @@ class CustomChat extends StatelessWidget {
             ),
           ),
           child: Text(
-            'Hello , Iam New User Here',
+            message.message,
             style: TextStyle(color: AppColor.white),
           ),
         ),
