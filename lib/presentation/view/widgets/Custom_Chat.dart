@@ -34,3 +34,35 @@ class CustomChat extends StatelessWidget {
     );
   }
 }
+
+class CustomChat2 extends StatelessWidget {
+  const CustomChat2({
+    super.key,
+    required this.message,
+  });
+  final MessageModel message;
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Container(
+          padding: EdgeInsets.only(bottom: 28, left: 16, right: 16, top: 28),
+          decoration: BoxDecoration(
+            color: AppColor.chatBubble,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(28),
+              topLeft: Radius.circular(28),
+              topRight: Radius.circular(28),
+            ),
+          ),
+          child: Text(
+            message.message,
+            style: TextStyle(color: AppColor.white),
+          ),
+        ),
+      ),
+    );
+  }
+}

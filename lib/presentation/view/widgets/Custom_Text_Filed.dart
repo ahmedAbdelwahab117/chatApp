@@ -2,12 +2,10 @@ import 'package:chat/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFiled extends StatelessWidget {
-  CustomTextFiled({
-    super.key,
-    this.onChange,
-    required this.text,
-  });
+  CustomTextFiled(
+      {super.key, this.onChange, required this.text, this.obscure = false});
   final String text;
+  final bool obscure;
   Function(String)? onChange;
   @override
   Widget build(BuildContext context) {
@@ -19,6 +17,7 @@ class CustomTextFiled extends StatelessWidget {
             return 'enter your data';
           }
         },
+        obscureText: obscure,
         onChanged: onChange,
         decoration: InputDecoration(
             hintText: text,

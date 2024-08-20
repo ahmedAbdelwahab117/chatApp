@@ -16,8 +16,9 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: messages.orderBy(kCreatedIt).snapshots(),
+        stream: messages.orderBy(kCreatedIt, descending: true).snapshots(),
         builder: (context, snapshot) {
+          var email = ModalRoute.of(context)?.settings.arguments;
           if (snapshot.hasData) {
             List<MessageModel> messagesList = [];
             for (int i = 0; i < snapshot.data!.docs.length; i++) {
@@ -47,12 +48,15 @@ class ChatPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ListView.builder(
+                        reverse: true,
                         controller: _controller,
                         itemCount: messagesList.length,
                         itemBuilder: (context, i) {
-                          return CustomChat(
-                            message: messagesList[i],
-                          );
+                          return messagesList[i].id == email
+                              ? CustomChat(
+                                  message: messagesList[i],
+                                )
+                              : CustomChat2(message: messagesList[i]);
                         }),
                   ),
                   Padding(
@@ -60,12 +64,15 @@ class ChatPage extends StatelessWidget {
                     child: TextField(
                       controller: controller,
                       onSubmitted: (data) {
-                        messages
-                            .add({kMessage: data, kCreatedIt: DateTime.now()});
+                        messages.add({
+                          kMessage: data,
+                          kCreatedIt: DateTime.now(),
+                          'id': email
+                        });
 
                         controller.clear();
                         _controller.animateTo(
-                          _controller.position.maxScrollExtent,
+                          0,
                           duration: Duration(seconds: 1),
                           curve: Curves.easeIn,
                         );
@@ -87,7 +94,7 @@ class ChatPage extends StatelessWidget {
               ),
             );
           } else
-            return Text('Loading...');
+            return Center(child: CircularProgressIndicator());
         });
   }
 }

@@ -52,6 +52,7 @@ class _RegsterpageState extends State<Regsterpage> {
                 },
               ),
               CustomTextFiled(
+                obscure: true,
                 text: 'Password',
                 onChange: (data) {
                   password = data;
@@ -68,7 +69,7 @@ class _RegsterpageState extends State<Regsterpage> {
                         email: email!,
                         password: password!,
                       );
-                      Navigator.pushNamed(context, Chat.id);
+                      Navigator.pushNamed(context, Chat.id, arguments: email);
                       Navigator.pop(context);
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'weak-password') {

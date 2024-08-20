@@ -52,6 +52,7 @@ class _ChatState extends State<Chat> {
                 text: 'Login',
               ),
               CustomTextFiled(
+                obscure: true,
                 onChange: (data) {
                   password = data;
                 },
@@ -66,7 +67,7 @@ class _ChatState extends State<Chat> {
                       final credential = await FirebaseAuth.instance
                           .signInWithEmailAndPassword(
                               email: email!, password: password!);
-                      Navigator.pushNamed(context, Chat.id);
+                      Navigator.pushNamed(context, Chat.id, arguments: email);
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         snakeBarMsg2(context, 'No user found for that email.');

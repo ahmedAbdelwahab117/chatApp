@@ -5,3 +5,4 @@ const String kMessageCollection = 'messages';
 const String kPrimaryImage = 'assets/images/3232394_43870-removebg.png';
 const String kMessage = 'message';
 const String kCreatedIt = 'createdIt';
+const String kid = 'id';
